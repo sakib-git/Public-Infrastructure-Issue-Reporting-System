@@ -5,7 +5,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 const Banner = () => {
   return (
     <Carousel className="max-lg:px-4" autoPlay={true} infiniteLoop={true} showArrows={false} showStatus={false}>
-      <div className=" bg-white p-6 rounded-lg shadow hover:shadow-lg transition bg-[url('src/assets/photorealistic-style-clouds-light.jpg')] bg-cover bg-center  h-[400px]  relative">
+      <div className=" bg-white p-6 rounded-lg shadow hover:shadow-lg transition bg-[url('/photorealistic-style-clouds-light.jpg')] bg-cover bg-center  h-[400px]  relative">
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white ">
           <h3 className="text-5xl max-md:text-3xl font-bold mb-2 ">Broken Streetlights</h3>
           <p className="text-center text-2xl mb-4">Streetlights not working? Report them now.'</p>
@@ -13,7 +13,7 @@ const Banner = () => {
         </div>
       </div>
 
-      <div className=" bg-white p-6 rounded-lg shadow hover:shadow-lg transition bg-[url('src/assets/closeup-bea-ch-shore-washed-up-with-garbage.jpg')] bg-cover bg-center  h-[400px]  ">
+      <div className=" bg-white p-6 rounded-lg shadow hover:shadow-lg transition bg-[url('/closeup-bea-ch-shore-washed-up-with-garbage.jpg')] bg-cover bg-center  h-[400px]  ">
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white ">
           <h3 className="text-5xl max-md:text-3xl font-bold mb-2">Garbage Overflow</h3>
           <p className="text-center text-2xl mb-4">Overflowing garbage in public areas? Let us know.</p>
@@ -21,7 +21,7 @@ const Banner = () => {
         </div>
       </div>
 
-      <div className=" bg-white p-6 rounded-lg shadow hover:shadow-lg transition bg-[url('src/assets/street-floor.jpg')] bg-cover bg-center  h-[400px]  ">
+      <div className=" bg-white p-6 rounded-lg shadow hover:shadow-lg transition bg-[url('/street-floor.jpg')] bg-cover bg-center  h-[400px]  ">
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
           <h3 className="text-5xl max-md:text-3xl font-bold mb-2">Damaged Footpaths</h3>
           <p className="text-center text-2xl mb-4">Cracked or broken footpaths? Report it now.</p>
@@ -29,7 +29,7 @@ const Banner = () => {
         </div>
       </div>
 
-      <div className=" bg-white p-6 rounded-lg shadow hover:shadow-lg transition bg-[url('src/assets/plumbing-repair.jpg')] bg-cover bg-center  h-[400px]  ">
+      <div className=" bg-white p-6 rounded-lg shadow hover:shadow-lg transition bg-[url('/plumbing-repair.jpg')] bg-cover bg-center  h-[400px]  ">
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
           <h3 className="text-5xl max-md:text-3xl font-bold mb-2">Water Leakage</h3>
           <p className="text-center text-2xl mb-4">Report water leaks to prevent damage and waste</p>
