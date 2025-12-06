@@ -21,7 +21,7 @@ const Navbar = () => {
       className={({isActive}) => ` ${isActive ? 'bg-[#caeb66]' : ''} btn`}>
         <li >Report Issue</li>
       </NavLink> */}
-      <NavLink>
+      <NavLink to='/login'>
         <li>
           <button className="bg-[#25408f] text-white font-semibold btn rounded-md outline-none">Login</button>
         </li>
