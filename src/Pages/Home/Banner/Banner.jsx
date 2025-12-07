@@ -4,7 +4,12 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const Banner = () => {
   return (
-    <Carousel className="max-lg:px-4" autoPlay={true} infiniteLoop={true} showArrows={false} showStatus={false}>
+    <Carousel className="max-lg:px-4" 
+    autoPlay={true} 
+    infiniteLoop={true} 
+    // showArrows={false} 
+    showStatus={false}
+    >
       <div className=" bg-white p-6 rounded-lg shadow hover:shadow-lg transition bg-[url('/photorealistic-style-clouds-light.jpg')] bg-cover bg-center  h-[400px]  relative">
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white ">
           <h3 className="text-5xl max-md:text-3xl font-bold mb-2 ">Broken Streetlights</h3>

@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Outlet } from 'react-router';
+import { ToastContainer } from 'kitzo/react';
 
 const Root = () => {
   return (
@@ -11,6 +12,7 @@ const Root = () => {
        <Outlet></Outlet>
      </div>
       <Footer></Footer>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

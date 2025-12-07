@@ -7,6 +7,7 @@ import Login from "../Pages/Auth/Login/Login";
 import AuthLayout from "../Layouts/AuthLayout";
 import Register from "../Pages/Auth/Register/Register";
 import Error from "../components/ErrorPage/Error";
+import PrivateRoute from "./PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -20,7 +21,9 @@ export const router = createBrowserRouter([
       },
       {
         path:'/about',
-        element: <About></About>
+        element: <PrivateRoute>
+          <About></About>
+        </PrivateRoute>
       },
       {
         path:'/allissues',

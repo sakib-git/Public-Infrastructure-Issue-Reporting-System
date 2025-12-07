@@ -1,8 +1,12 @@
+
 import React from 'react';
+import useAuth from '../../Hooks/useAuth';
 
 const About = () => {
+const {user} = useAuth()
+  
   return (
-    <div className='max-w-[1400px] mx-auto bg-white rounded-lg  p-6  mt-6'>
+  <div className='max-w-[1400px] mx-auto bg-white rounded-lg  p-6  mt-6'>
     
 <h1 className="text-3xl font-bold">About InfraReport</h1>
 <p className="text-gray-700 mt-4">
@@ -30,7 +34,7 @@ InfraReport is a digital platform that enables citizens to report public infrast
 InfraReport ensures transparency, accountability, and faster public service delivery, making the city a better place for everyone.
 </p>
 
-    </div>
+    </div> 
   );
 };
 

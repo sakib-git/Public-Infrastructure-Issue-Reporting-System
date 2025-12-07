@@ -1,10 +1,23 @@
 import React from 'react';
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { LogOut, Menu, X } from 'lucide-react';
 import { NavLink } from 'react-router';
+import useAuth from '../Hooks/useAuth';
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [openimg, setOpenimg] = useState(false)
+  const { logOut, user, setUser } = useAuth();
 
+  console.log(user);
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        setUser(null);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   const links = (
     <>
       <NavLink to="/" className={({ isActive }) => ` ${isActive ? 'text-[#1e91f4]' : ''} px-5 py-1.5 rounded-md font-medium hover:bg-[#e7e7e8]`}>
@@ -21,11 +34,32 @@ const Navbar = () => {
       className={({isActive}) => ` ${isActive ? 'bg-[#caeb66]' : ''} btn`}>
         <li >Report Issue</li>
       </NavLink> */}
-      <NavLink to='/login'>
-        <li>
-          <button className="bg-[#25408f] text-white font-semibold btn rounded-md outline-none">Login</button>
-        </li>
+      {user ? (
+       <div className='relative'>
+           <div onClick={() => setOpenimg(!openimg)} 
+           className='w-10 h-10 rounded-full'>
+          <img className='rounded-full' src={user.photoURL} alt="" />
+        </div>
+       {
+        openimg &&  <div className='absolute bg-white flex flex-col gap-3 px-3 shadow py-2 top-15 z-99 w-[200px] rounded-md transition-all  duration-3000 ' >
+           <h1 className='font-bold text-2xl'>{user.displayName}</h1>
+           <NavLink to='/dd' className={({ isActive }) => ` ${isActive ? 'text-[#1e91f4]' : ''} px-5 py-1.5 rounded-md font-medium hover:bg-[#e7e7e8]`}>
+        <li>Dashboard</li>
       </NavLink>
+            <button onClick={handleLogout} className="bg-[#25408f] text-white font-semibold btn rounded-md outline-none ">
+          log out
+        </button>
+        </div>
+       }
+       </div>
+      ) : (
+     
+        <NavLink to="/login">
+          <li>
+            <button className="bg-[#25408f] text-white font-semibold btn rounded-md outline-none">Login</button>
+          </li>
+        </NavLink>
+      )}
     </>
   );
   return (

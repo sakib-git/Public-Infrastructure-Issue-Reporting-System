@@ -1,3 +1,4 @@
+import { ToastContainer } from 'kitzo/react';
 import React from 'react';
 import { Outlet } from 'react-router';
 
