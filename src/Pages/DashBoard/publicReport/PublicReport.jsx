@@ -4,10 +4,15 @@ import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { toast } from 'kitzo/react';
+import useAuth from '../../../Hooks/useAuth';
+import {  useNavigate } from 'react-router';
 
 
 const PublicReport = () => {
   const axiosSecure = useAxiosSecure()
+  const {user} = useAuth()
+  const navigate = useNavigate()
+  // console.log(user?.email)
   const {
     register,
     handleSubmit,
@@ -15,6 +20,8 @@ const PublicReport = () => {
   } = useForm();
 
 const   handleForm = async (data) => {
+
+  
 const uploadPhoto = data.photo[0];
 
  const formData = new FormData();
@@ -34,13 +41,15 @@ const uploadedImageUrl = imgResponse.data.data.url;
       status: 'Pending',
       image: uploadedImageUrl,  
       upvotes: 0,
-     date:  format(new Date(), 'MM/dd/yyyy, hh:mm a')
+     date:  format(new Date(), 'MM/dd/yyyy, hh:mm a'),
+     email: user?.email
     };
 
      axiosSecure.post("/issues", issueData)
      .then(res => {
-      // console.log(res.data)
       toast.success('Issue submitted successfully!')
+      navigate('/dashboard/my-issues-page')
+     
      })
     
 }

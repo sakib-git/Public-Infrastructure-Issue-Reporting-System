@@ -11,6 +11,7 @@ import PrivateRoute from './PrivateRoute';
 import DashBoard from '../Layouts/DashBoard';
 import PublicReport from '../Pages/DashBoard/publicReport/PublicReport';
 import ViewDetail from '../Pages/AllIssues/ViewDetails/ViewDetail';
+import MyIssuesPage from '../Pages/DashBoard/MyIssuesPage/MyIssuesPage';
 
 export const router = createBrowserRouter([
   {
@@ -35,7 +36,9 @@ export const router = createBrowserRouter([
       },
       {
         path: '/viewdetails/:id',
-        element: <ViewDetail></ViewDetail>,
+        element: <PrivateRoute>
+          <ViewDetail></ViewDetail>
+        </PrivateRoute>,
         loader: async ({ params }) =>
           await fetch(`${import.meta.env.VITE_SERVER}/issues/${params.id}`),
       },
@@ -57,8 +60,14 @@ export const router = createBrowserRouter([
   },
   {
     path: 'dashboard',
-    element: <DashBoard></DashBoard>,
+    element: <PrivateRoute>
+      <DashBoard></DashBoard>
+    </PrivateRoute>,
     children: [
+      {
+       path:'my-issues-page',
+       element: <MyIssuesPage></MyIssuesPage>
+      },
       {
         path: 'public-report',
         element: <PublicReport></PublicReport>,
