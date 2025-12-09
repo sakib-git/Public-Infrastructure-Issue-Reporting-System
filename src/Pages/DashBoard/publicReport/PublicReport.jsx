@@ -42,7 +42,7 @@ const uploadedImageUrl = imgResponse.data.data.url;
       image: uploadedImageUrl,  
       upvotes: 0,
      date:  format(new Date(), 'MM/dd/yyyy, hh:mm a'),
-     email: user?.email
+    
     };
 
      axiosSecure.post("/issues", issueData)

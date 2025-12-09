@@ -19,6 +19,7 @@ const MyIssuesPage = () => {
   return (
     <div className='mx-20'>
       <h3 className='text-4xl py-6 font-bold'>My Issues Page: {myIssues.length}</h3>
+    
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-md:mx-4 gap-10'>
         {
           myIssues.map(issue => <IssueCard issue={issue}></IssueCard>)

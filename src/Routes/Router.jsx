@@ -12,6 +12,13 @@ import DashBoard from '../Layouts/DashBoard';
 import PublicReport from '../Pages/DashBoard/publicReport/PublicReport';
 import ViewDetail from '../Pages/AllIssues/ViewDetails/ViewDetail';
 import MyIssuesPage from '../Pages/DashBoard/MyIssuesPage/MyIssuesPage';
+import MyProfile from '../Pages/DashBoard/MyProfile/MyProfile';
+import AdminDashboardLayout from '../Admin/dashboard/AdminDashboardLayout';
+import AdminDashboard from '../Admin/dashboard/AdminDashboard';
+import StaffDashboardLayout from '../staff/dashboard/StaffDashboardLayout';
+import StaffDashboard from '../staff/dashboard/StaffDashboard';
+import RoleBasedRedirect from './RoleBasedRedirect';
+import AuthProtectedRoute from './AuthProtectedRoute';
 
 export const router = createBrowserRouter([
   {
@@ -36,9 +43,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/viewdetails/:id',
-        element: <PrivateRoute>
-          <ViewDetail></ViewDetail>
-        </PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <ViewDetail></ViewDetail>
+          </PrivateRoute>
+        ),
         loader: async ({ params }) =>
           await fetch(`${import.meta.env.VITE_SERVER}/issues/${params.id}`),
       },
@@ -46,7 +55,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <AuthLayout></AuthLayout>,
+    element: (
+      <AuthProtectedRoute>
+        <AuthLayout></AuthLayout>
+      </AuthProtectedRoute>
+    ),
     children: [
       {
         path: '/login',
@@ -60,17 +73,57 @@ export const router = createBrowserRouter([
   },
   {
     path: 'dashboard',
-    element: <PrivateRoute>
-      <DashBoard></DashBoard>
-    </PrivateRoute>,
+    element: (
+      <PrivateRoute>
+        <RoleBasedRedirect requiredRole={'user'}>
+          <DashBoard />
+        </RoleBasedRedirect>
+      </PrivateRoute>
+    ),
     children: [
       {
-       path:'my-issues-page',
-       element: <MyIssuesPage></MyIssuesPage>
+        path: 'my-issues-page',
+        element: <MyIssuesPage></MyIssuesPage>,
       },
       {
         path: 'public-report',
         element: <PublicReport></PublicReport>,
+      },
+      {
+        path: 'my-profile',
+        element: <MyProfile></MyProfile>,
+      },
+    ],
+  },
+  {
+    path: '/admin/dashboard',
+    element: (
+      <PrivateRoute>
+        <RoleBasedRedirect requiredRole={'admin'}>
+          <AdminDashboardLayout />
+        </RoleBasedRedirect>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: '',
+        element: <AdminDashboard />,
+      },
+    ],
+  },
+  {
+    path: '/staff/dashboard',
+    element: (
+      <PrivateRoute>
+        <RoleBasedRedirect requiredRole={'staff'}>
+          <StaffDashboardLayout />
+        </RoleBasedRedirect>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: '',
+        element: <StaffDashboard />,
       },
     ],
   },

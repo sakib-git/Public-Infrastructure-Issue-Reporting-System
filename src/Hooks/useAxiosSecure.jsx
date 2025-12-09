@@ -1,11 +1,21 @@
 import axios from 'axios';
-import React from 'react';
+import { auth } from '../Firebase/FireBase.init';
+
+const axiosSecure = axios.create({
+  baseURL: import.meta.env.VITE_SERVER,
+});
+
+axiosSecure.interceptors.request.use(async (config) => {
+  const user = auth.currentUser;
+  if (user) {
+    const token = await user.getIdToken();
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 const useAxiosSecure = () => {
-  const axiosSecure = axios.create({
-    baseURL:import.meta.env.VITE_SERVER
-  })
-  return axiosSecure
+  return axiosSecure;
 };
 
 export default useAxiosSecure;

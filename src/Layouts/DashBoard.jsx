@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
-import { TbReport } from 'react-icons/tb';
+import { TbPointerFilled, TbReport } from 'react-icons/tb';
 import { MdOutlineReportProblem } from "react-icons/md";
 import { ToastContainer } from 'kitzo/react';
-import { LayoutDashboard } from 'lucide-react';
+import { LayoutDashboard, UserPlus } from 'lucide-react';
 
 const DashBoard = () => {
   return (
@@ -97,6 +97,17 @@ const DashBoard = () => {
               >
                 <TbReport size={24} />
                 <span className="is-drawer-close:hidden">Issue Report</span>
+              </NavLink>
+            </li>
+            <li>
+              {/* public report */}
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="my-profile"
+                to="/dashboard/my-profile"
+              >
+                   <UserPlus size={24} /> 
+                <span className="is-drawer-close:hidden">My profile</span>
               </NavLink>
             </li>
           </ul>

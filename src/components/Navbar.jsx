@@ -3,21 +3,17 @@ import { LogOut, Menu, X } from 'lucide-react';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import Logo from './Logo';
+import { signOut } from 'firebase/auth';
+import { auth } from '../Firebase/FireBase.init';
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [openimg, setOpenimg] = useState(false);
-  const { logOut, user, setUser } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogout = () => {
-    logOut()
-      .then(() => {
-        setUser(null);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    signOut(auth);
   };
 
   useEffect(() => {
@@ -82,10 +78,10 @@ const Navbar = () => {
             />
           </div>
           {openimg && (
-            <div className="dropdown-menu absolute top-15 right-0 max-md:left-0 z-99 flex w-[200px] flex-col gap-3 rounded-md bg-white px-3 py-2 shadow transition-all duration-3000">
+            <div className="dropdown-menu absolute top-15 right-0 z-99 flex w-[200px] flex-col gap-3 rounded-md bg-white px-3 py-2 shadow transition-all duration-3000 max-md:left-0">
               <h1 className="text-2xl font-bold">{user.displayName}</h1>
               <NavLink
-                to="/dashboard"
+                to={user.role !== 'user' ? `/${user.role}/dashboard` : '/dashboard'}
                 className={({ isActive }) =>
                   ` ${isActive ? 'text-[#1e91f4]' : ''} rounded-md px-5 py-1.5 font-medium hover:bg-[#e7e7e8]`
                 }

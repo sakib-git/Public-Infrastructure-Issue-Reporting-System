@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { auth } from '../Firebase/FireBase.init';
 import {
   createUserWithEmailAndPassword,
@@ -6,9 +6,9 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut,
   updateProfile,
 } from 'firebase/auth';
+import useAxiosSecure from './../Hooks/useAxiosSecure';
 
 export const AuthContext = createContext(null);
 
@@ -17,42 +17,77 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userCreating, setUserCreating] = useState(false);
+
+  const server = useAxiosSecure();
+
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  
+
+  // login with email & pass
   const loginUser = (email, password) => {
-    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const signInGoogle = () => {
-    setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+
+  // login in with google
+  const signInGoogle = async () => {
+    setUserCreating(true);
+    await signInWithPopup(auth, googleProvider);
+
+    const user = auth.currentUser;
+
+    try {
+      const { data } = await server.post('/user/social-login', {
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      });
+      console.log(data);
+      setUser(data);
+      return data;
+    } catch (err) {
+      console.error(err);
+      return null;
+    } finally {
+      setUserCreating(false);
+    }
   };
 
-  const logOut = () => {
-    setLoading(true);
-    return signOut(auth);
+  // update user
+  const updateProfileUser = async (profile) => {
+    setUserCreating(true);
+    await updateProfile(auth.currentUser, profile);
+
+    const { data } = await server.post('/user/create', {
+      displayName: profile.displayName,
+      photoURL: profile.photoURL,
+    });
+    setUserCreating(false);
+
+    return data;
   };
-  const updateProfileUser = (profile) => {
-    return updateProfile(auth.currentUser, profile);
-  };
+
   // observe user state
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (userCreating) return;
+
+      if (currentUser) {
+        const { data } = await server.get('/user/get');
+        setUser(data);
+      } else {
+        setUser(null);
+      }
       setLoading(false);
-      // console.log(currentUser)
     });
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [userCreating]);
 
   const authInfo = {
     registerUser,
     loginUser,
-    logOut,
     updateProfileUser,
     signInGoogle,
     user,

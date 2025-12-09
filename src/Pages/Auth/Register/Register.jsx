@@ -18,8 +18,12 @@ const Register = () => {
   } = useForm();
 
   const { registerUser, updateProfileUser } = useAuth();
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const handleRegister = (data) => {
+    if (isRegistering) return;
+    setIsRegistering(true);
+
     //  console.log(data.photo[0])
     const profileImg = data.photo[0];
     registerUser(data.email, data.password)
@@ -33,16 +37,19 @@ const Register = () => {
           // console.log('after upload img', res.data.data.url)
           const userProfile = {
             displayName: data.name,
-
             photoURL: res.data.data.url,
           };
-          updateProfileUser(userProfile).then(() => {
-            navigate(location.state || '/');
-          });
+          updateProfileUser(userProfile)
+            .then((res) => {
+              console.log(res.data);
+              setIsRegistering(false);
+            })
+            .catch(() => setIsRegistering(false));
         });
       })
       .catch((error) => {
-        toast.error('Already have an account')
+        toast.error('Already have an account');
+        setIsRegistering(false);
       });
   };
   return (
@@ -91,7 +98,7 @@ const Register = () => {
               <p className="text-sm text-red-600">Email is required</p>
             )}
           </div>
-          <div className="flex flex-col relative">
+          <div className="relative flex flex-col">
             <label className="font-semibold text-[#c9c9c9]">Password</label>
             <input
               type={showPassword ? 'text' : 'password'}
@@ -110,17 +117,19 @@ const Register = () => {
             )}
             {errors.password?.type === 'minLength' && (
               <p className="text-sm text-red-600">
-             
                 password must be 6 characters or longer
               </p>
             )}
-            
           </div>
 
           <div>
             <button className="btn mb-2 w-full rounded-md bg-[#25408f] font-semibold text-white outline-none">
               {' '}
-              Register
+              {isRegistering ? (
+                <span className="loading loading-spinner loading-xs"></span>
+              ) : (
+                <span>Register</span>
+              )}
             </button>
           </div>
         </form>

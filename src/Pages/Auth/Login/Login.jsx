@@ -12,6 +12,8 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [showPassword, setShowpasswor] = useState(false);
+  const [isLogingIn, setIsLogingIn] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -21,13 +23,18 @@ const Login = () => {
 
   const { loginUser } = useAuth();
   const handleLogin = (data) => {
+    if (isLogingIn) return;
+    setIsLogingIn(true);
+
     loginUser(data.email, data.password)
       .then((res) => {
-        navigate(location?.state || '/');
-       
+        console.log(res);
+        setIsLogingIn(false);
       })
       .catch((error) => {
-        toast.error('Please check your password');
+        console.log(error);
+        toast.error('Inavlid email or password');
+        setIsLogingIn(false);
       });
   };
 
@@ -86,7 +93,7 @@ const Login = () => {
 
             <p
               onClick={handleForgotpassword}
-              className="text-sm mt-1"
+              className="mt-1 text-sm"
             >
               Forgot Password
             </p>
@@ -102,7 +109,11 @@ const Login = () => {
           <div>
             <button className="btn mb-2 w-full rounded-md bg-[#25408f] font-semibold text-white outline-none">
               {' '}
-              Log in
+              {isLogingIn ? (
+                <span className="loading loading-spinner loading-xs"></span>
+              ) : (
+                <span>Log in</span>
+              )}
             </button>
           </div>
         </form>

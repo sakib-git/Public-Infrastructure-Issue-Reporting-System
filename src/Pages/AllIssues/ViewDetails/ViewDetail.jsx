@@ -59,26 +59,23 @@ const ViewDetail = () => {
     });
   };
 
-  const issueData ={
-    date:  format(new Date(), 'MM/dd/yyyy, hh:mm a')
-  }
- 
   const handleEdit = (id) => {
-     setCurrentEditId(id);
+    setCurrentEditId(id);
     setOpenmodal(true);
   };
 
-  const handleForms = (formData) => {
-
-    axiosSecure.patch(`/issues/${currentEditId}`, issueData, formData)
-    .then(res => {
- if (res.data.modifiedCount) {
-      Swal.fire('Updated!', 'Issue updated successfully', 'success');
-      setOpenmodal(false);
-      navigate('/allissues');
-    }
-    })
-    
+  const handleForms = async (formData) => {
+    const issueData = {
+      ...formData,
+      date: format(new Date(), 'MM/dd/yyyy, hh:mm a'),
+    };
+    axiosSecure.patch(`/issues/${currentEditId}`, issueData).then((res) => {
+      if (res.data.modifiedCount) {
+        Swal.fire('Updated!', 'Issue updated successfully', 'success');
+        setOpenmodal(false);
+        navigate('/allissues');
+      }
+    });
   };
 
   return (
@@ -129,108 +126,112 @@ const ViewDetail = () => {
             </button>
             {openmodal && (
               <div
-              
                 onClick={() => setOpenmodal(false)}
                 className="fixed inset-0 flex items-center justify-center bg-black/10"
-                
               >
-               
-               <div onClick={(e) => e.stopPropagation()} className='bg-white max-w-[500px] w-full p-4 max-md:mx-3 rounded-md'>
-                 <form
-                
-                  onSubmit={handleSubmit(handleForms)}
-                  className="space-y-5"
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-full max-w-[500px] rounded-md bg-white p-4 max-md:mx-3"
                 >
-            
+                  <form
+                    onSubmit={handleSubmit(handleForms)}
+                    className="space-y-5"
+                  >
+                    {/* Title */}
+                    <div>
+                      <label className="font-semibold text-gray-500">
+                        Title
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter issue title"
+                        {...register('title', { required: true })}
+                        defaultValue={title}
+                        className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
+                      />
+                      {errors.title && (
+                        <p className="mt-1 text-sm text-red-600">
+                          Title is required
+                        </p>
+                      )}
+                    </div>
 
-                  {/* Title */}
-                  <div>
-                    <label className="font-semibold text-gray-500">Title</label>
-                    <input
-                      type="text"
-                      placeholder="Enter issue title"
-                      {...register('title', { required: true })}
-                      defaultValue={title}
-                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
-                    />
-                    {errors.title && (
-                      <p className="mt-1 text-sm text-red-600">
-                        Title is required
-                      </p>
-                    )}
-                  </div>
+                    {/* Category */}
+                    <div>
+                      <label className="font-semibold text-gray-500">
+                        Category
+                      </label>
 
-                  {/* Category */}
-                  <div>
-                    <label className="font-semibold text-gray-500">
-                      Category
-                    </label>
+                      <select
+                        defaultValue={category}
+                        {...register('category', { required: true })}
+                        className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
+                      >
+                        <option value="">Select a category</option>
+                        <option value="Broken Streetlights">
+                          Broken Streetlights
+                        </option>
+                        <option value="Potholes">Potholes</option>
+                        <option value="Water Leakage">Water Leakage</option>
+                        <option value="Garbage Overflow">
+                          Garbage Overflow
+                        </option>
+                        <option value="Damaged Footpaths">
+                          Damaged Footpaths
+                        </option>
+                      </select>
 
-                    <select
-                      {...register('category', { required: true })}
-                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
-                    >
-                      <option value="">Select a category</option>
-                      <option value="Broken Streetlights">
-                        Broken Streetlights
-                      </option>
-                      <option value="Potholes">Potholes</option>
-                      <option value="Water Leakage">Water Leakage</option>
-                      <option value="Garbage Overflow">Garbage Overflow</option>
-                      <option value="Damaged Footpaths">
-                        Damaged Footpaths
-                      </option>
-                    </select>
+                      {errors.category && (
+                        <p className="mt-1 text-sm text-red-600">
+                          Category is required
+                        </p>
+                      )}
+                    </div>
 
-                    {errors.category && (
-                      <p className="mt-1 text-sm text-red-600">
-                        Category is required
-                      </p>
-                    )}
-                  </div>
+                    {/* Location */}
+                    <div>
+                      <label className="font-semibold text-gray-500">
+                        Location
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter issue location"
+                        {...register('location', { required: true })}
+                        defaultValue={location}
+                        className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
+                      />
+                      {errors.location && (
+                        <p className="mt-1 text-sm text-red-600">
+                          Location is required
+                        </p>
+                      )}
+                    </div>
 
-                  {/* Location */}
-                  <div>
-                    <label className="font-semibold text-gray-500">
-                      Location
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter issue location"
-                      {...register('location', { required: true })}  defaultValue={location}
-                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
-                    />
-                    {errors.location && (
-                      <p className="mt-1 text-sm text-red-600">
-                        Location is required
-                      </p>
-                    )}
-                  </div>
+                    {/* Description */}
+                    <div>
+                      <label className="font-semibold text-gray-500">
+                        Description
+                      </label>
+                      <textarea
+                        rows={6}
+                        placeholder="Describe the issue..."
+                        {...register('description', { required: true })}
+                        defaultValue={description}
+                        className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
+                      ></textarea>
+                      {errors.description && (
+                        <p className="mt-1 text-sm text-red-600">
+                          Description is required
+                        </p>
+                      )}
+                    </div>
 
-                  {/* Description */}
-                  <div>
-                    <label className="font-semibold text-gray-500">
-                      Description
-                    </label>
-                    <textarea
-                      rows={6}
-                      placeholder="Describe the issue..."
-                      {...register('description', { required: true })}  defaultValue={description}
-                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
-                    ></textarea>
-                    {errors.description && (
-                      <p className="mt-1 text-sm text-red-600">
-                        Description is required
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Submit Button */}
-                  <button className="w-full rounded-lg bg-[#25408f] py-3 font-semibold text-white transition hover:bg-[#1b2f6b]">
-                    Submit Report
-                  </button>
-                </form>
-               </div>
+                    {/* Submit Button */}
+                    <button className="w-full rounded-lg bg-[#25408f] py-3 font-semibold text-white transition hover:bg-[#1b2f6b]">
+                      Submit Report
+                    </button>
+                  </form>
+                </div>
               </div>
             )}
             <button
