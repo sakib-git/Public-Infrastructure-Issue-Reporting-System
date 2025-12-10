@@ -12,11 +12,7 @@ const MyProfile = () => {
    <img className='w-[200px] rounded-full' src={user.photoURL} alt="" />
  </div>
   <div>
-    
- {/* <p>{user.displayName}</p> */}
- <input type="text" className='border' />
-
- <p>{user.email}</p>
+ 
   </div>
       </div>
      
