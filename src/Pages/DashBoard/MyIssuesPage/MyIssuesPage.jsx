@@ -22,7 +22,7 @@ const MyIssuesPage = () => {
     
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-md:mx-4 gap-10'>
         {
-          myIssues.map(issue => <IssueCard issue={issue}></IssueCard>)
+          myIssues.map(issue => <IssueCard key={issue._id} issue={issue}></IssueCard>)
         }
       </div>
     </div>

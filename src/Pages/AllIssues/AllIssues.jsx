@@ -17,7 +17,7 @@ const AllIssues = () => {
 
   
 if(isLoading){
-  <p>loading</p>
+  return <p>loading</p>
 }
   const filteredIssues = issues.filter((item) => {
     const matchesSearch = item.title
