@@ -1,2 +1,8 @@
-@import "tailwindcss";
-@plugin "daisyui";
+@import 'tailwindcss';
+@plugin 'daisyui';
+
+@media (pointer: fine) {
+  button {
+    cursor: pointer;
+  }
+}

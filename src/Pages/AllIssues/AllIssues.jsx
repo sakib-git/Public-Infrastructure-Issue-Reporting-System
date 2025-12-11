@@ -15,10 +15,15 @@ const AllIssues = () => {
     },
   });
 
-  
-if(isLoading){
-  return <p>loading</p>
-}
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <span className="loading loading-ring loading-lg"></span>
+        <span className="loading loading-ring loading-lg"></span>
+        <span className="loading loading-ring loading-lg"></span>
+      </div>
+    );
+  }
   const filteredIssues = issues.filter((item) => {
     const matchesSearch = item.title
       .toLowerCase()
@@ -82,11 +87,9 @@ if(isLoading){
             ></IssueCard>
           ))
         )}
-
       </div>
     </div>
   );
 };
 
 export default AllIssues;
-

@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
         displayName: user.displayName,
         photoURL: user.photoURL,
       });
-      console.log(data);
+      // console.log(data);
       setUser(data);
       return data;
     } catch (err) {
@@ -91,6 +91,7 @@ const AuthProvider = ({ children }) => {
     updateProfileUser,
     signInGoogle,
     user,
+    setUser,
     loading,
   };
   return (

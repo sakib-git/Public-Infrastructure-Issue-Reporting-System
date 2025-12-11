@@ -1,15 +1,24 @@
 import React from 'react';
-import Navbar from '../../components/Navbar';
-import { Outlet } from 'react-router';
 import Banner from './Banner/Banner';
+import Howtowork from './HowTowork/Howtowork';
+import KeyFeatures from './KeyFeatures/KeyFeatures';
+import StayUpdated from './StayUpdated/StayUpdated';
 
 const Home = () => {
   return (
-    <div className='max-w-[1400px] mx-auto '>
-    
-    <div className='mt-20'>
-      <Banner></Banner>
-    </div>
+    <div className="">
+      <div  className="mt-20 max-w-[1000px] mx-auto">
+        <Banner></Banner>
+      </div>
+      <div className="my-20">
+        <Howtowork></Howtowork>
+      </div>
+      <div className="my-20">
+      <KeyFeatures></KeyFeatures>
+      </div>
+      <div className="my-20">
+      <StayUpdated></StayUpdated>
+      </div>
     </div>
   );
 };

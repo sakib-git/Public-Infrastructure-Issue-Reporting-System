@@ -29,6 +29,7 @@ const ViewDetail = () => {
     description,
     date,
     _id,
+    status,
   } = data;
 
   const handleDelete = (id) => {
@@ -104,6 +105,11 @@ const ViewDetail = () => {
               className={`rounded-full px-4 py-1 shadow-sm ${priority === 'High' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}
             >
               Priority: {priority}
+            </span>
+            <span
+              className={`rounded-full px-4 py-1 shadow-sm ${status === 'pending' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}
+            >
+              status : {status}
             </span>
             <span className="rounded-full bg-yellow-100 px-4 py-1 text-yellow-800 shadow-sm">
               Upvotes: {upvotes}
