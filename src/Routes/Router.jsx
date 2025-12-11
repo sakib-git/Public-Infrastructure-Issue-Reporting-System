@@ -26,6 +26,7 @@ import AdminManageStaff from '../Admin/dashboard/AdminManageStaff';
 import Paymentspage from '../Admin/dashboard/Paymentspage';
 import StaffProfile from '../staff/dashboard/StaffProfile';
 import StaffAssignedissues from '../staff/dashboard/StaffAssignedissues';
+import Payment from '../Pages/AllIssues/Payment/Payment';
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,12 @@ export const router = createBrowserRouter([
         loader: async ({ params }) =>
           await fetch(`${import.meta.env.VITE_SERVER}/issues/${params.id}`),
       },
+      {
+        path:'/payment/:issueId',
+        element: <PrivateRoute>
+          <Payment></Payment>
+        </PrivateRoute>
+      }
     ],
   },
   {

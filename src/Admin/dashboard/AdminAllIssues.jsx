@@ -12,7 +12,6 @@ const AdminAllIssues = () => {
     },
   });
 
-  console.log(issues);
   return (
     <div className="">
       <h2 className="py-2 text-4xl font-bold max-sm:px-4">

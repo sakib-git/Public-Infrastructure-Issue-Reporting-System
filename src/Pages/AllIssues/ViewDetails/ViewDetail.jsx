@@ -79,6 +79,11 @@ const ViewDetail = () => {
     });
   };
 
+  // const handlePayment = (_id, status) => {
+  //   //  console.log(_id, status)
+  //   axiosSecure.post('/payment-checkout-session', { _id, status });
+  // };
+
   return (
     <div className="mx-auto my-20 max-w-[1200px] rounded-2xl bg-white p-8 shadow-xl">
       <div className="flex flex-col gap-10 md:flex-row">
@@ -123,6 +128,11 @@ const ViewDetail = () => {
           </div>
 
           {/* Action Buttons */}
+          <Link to={`/payment/${_id}`}>
+            <button className="btn w-fit rounded-lg bg-[#25408f] py-3 font-semibold text-white transition hover:bg-[#1b2f6b]">
+              Boost
+            </button>
+          </Link>
           <div className="mt-auto flex flex-col gap-4 sm:flex-row">
             <button
               onClick={() => handleEdit(_id)}
