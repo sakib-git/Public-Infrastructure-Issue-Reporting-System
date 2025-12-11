@@ -73,7 +73,7 @@ const AuthProvider = ({ children }) => {
       if (userCreating) return;
 
       if (currentUser) {
-        const { data } = await server.get('/user/get');
+        const { data } = await server.get('/user/user-profile');
         setUser(data);
       } else {
         setUser(null);
