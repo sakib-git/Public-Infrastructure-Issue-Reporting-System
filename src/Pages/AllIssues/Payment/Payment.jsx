@@ -33,16 +33,20 @@ const Payment = () => {
     <p>loading...</p>;
   }
   return (
-    <div>
-      {/* <h5>payment{payment.priority}</h5> */}
-      <button
-        onClick={handlePay}
-        className="btn"
-      >
-        {' '}
-        pay
-      </button>
-    </div>
+ 
+
+ <div className='flex justify-center items-center mt-20'>
+   <div className="p-4 bg-white shadow-md rounded-lg border border-gray-200  text-center ">
+  <h5 className="text-2xl font-bold mb-2">Boost this Issue</h5>
+  <p className=" mb-3">Increase priority to high for 100tk</p>
+  <button 
+  onClick={handlePay}
+   className="btn bg-blue-700 text-white py-2 px-4 rounded-lg hover:bg-blue-900">
+    Pay & Boost
+  </button>
+</div>
+ </div>
+
   );
 };
 
