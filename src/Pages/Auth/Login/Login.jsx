@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router';
+import { Link, NavLink, useLocation,  } from 'react-router';
 import useAuth from '../../../Hooks/useAuth';
 import { toast } from 'kitzo/react';
 import SocialLogin from '../SocialLogin/SocialLogin';
@@ -10,7 +10,7 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
 const Login = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [showPassword, setShowpasswor] = useState(false);
   const [isLogingIn, setIsLogingIn] = useState(false);
 
@@ -28,7 +28,7 @@ const Login = () => {
 
     loginUser(data.email, data.password)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setIsLogingIn(false);
       })
       .catch((error) => {

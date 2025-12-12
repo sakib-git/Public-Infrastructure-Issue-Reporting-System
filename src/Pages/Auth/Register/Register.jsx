@@ -41,7 +41,6 @@ const Register = () => {
           };
           updateProfileUser(userProfile)
             .then((res) => {
-              console.log(res.data);
               setIsRegistering(false);
             })
             .catch(() => setIsRegistering(false));
