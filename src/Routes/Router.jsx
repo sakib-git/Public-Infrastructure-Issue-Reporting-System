@@ -29,6 +29,7 @@ import StaffAssignedissues from '../staff/dashboard/StaffAssignedissues';
 import Payment from '../Pages/AllIssues/Payment/Payment';
 import PaymentSuccess from '../Pages/AllIssues/Payment/PaymentSuccess';
 import PaymentCancell from '../Pages/AllIssues/Payment/PaymentCancell';
+import DasboardCitizen from '../Pages/DashBoard/DasboardCitizen';
 
 export const router = createBrowserRouter([
   {
@@ -123,6 +124,10 @@ export const router = createBrowserRouter([
         path: 'my-profile',
         element: <MyProfile></MyProfile>,
       },
+      {
+        path:'dashboardcitizen',
+        element:<DasboardCitizen></DasboardCitizen>
+      }
     ],
   },
   {

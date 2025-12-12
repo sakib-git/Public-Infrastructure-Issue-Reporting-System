@@ -6,6 +6,9 @@ import { ToastContainer } from 'kitzo/react';
 import { LayoutDashboard, UserPlus } from 'lucide-react';
 
 const DashBoard = () => {
+
+
+
   return (
     <div className="drawer lg:drawer-open ">
       <input
@@ -47,7 +50,7 @@ const DashBoard = () => {
           </div>
         </nav>
         {/* Page content here */}
-      
+   
         <Outlet></Outlet>
       </div>
 
@@ -62,7 +65,7 @@ const DashBoard = () => {
           <ul className="menu w-full grow">
             {/* List item */}
 
-            <NavLink to="/dashboard">
+            <NavLink to="/dashboard/dashboardcitizen">
               <li>
                 <button
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"

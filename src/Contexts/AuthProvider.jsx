@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
       if (userCreating) return;
 
       if (currentUser) {
-        const { data } = await axiosSecure.get('/user/user-profile');
+        const { data } = await axiosSecure.post('/user/user-profile');
         setUser(data);
       } else {
         setUser(null);
