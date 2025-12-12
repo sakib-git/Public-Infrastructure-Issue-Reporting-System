@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
   const [userCreating, setUserCreating] = useState(false);
 
   // const server = useAxiosSecure();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
 
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -74,8 +74,14 @@ const AuthProvider = ({ children }) => {
       if (userCreating) return;
 
       if (currentUser) {
-        const { data } = await axiosSecure.post('/user/user-profile');
-        setUser(data);
+        try {
+          const { data } = await axiosSecure.get('/user/user-profile');
+          setUser(data);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
       } else {
         setUser(null);
       }

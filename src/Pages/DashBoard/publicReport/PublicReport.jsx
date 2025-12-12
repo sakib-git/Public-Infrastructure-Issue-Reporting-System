@@ -18,9 +18,9 @@ const PublicReport = () => {
     formState: { errors },
   } = useForm();
 
-let freeUser = 3;
+// let freeUser = 3;
   const handleForm = async (data) => {
-    if(user === freeUser) return
+    // if(user === freeUser) return
 
     const uploadPhoto = data.photo[0];
 
