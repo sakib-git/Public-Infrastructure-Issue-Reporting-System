@@ -27,6 +27,8 @@ import Paymentspage from '../Admin/dashboard/Paymentspage';
 import StaffProfile from '../staff/dashboard/StaffProfile';
 import StaffAssignedissues from '../staff/dashboard/StaffAssignedissues';
 import Payment from '../Pages/AllIssues/Payment/Payment';
+import PaymentSuccess from '../Pages/AllIssues/Payment/PaymentSuccess';
+import PaymentCancell from '../Pages/AllIssues/Payment/PaymentCancell';
 
 export const router = createBrowserRouter([
   {
@@ -39,11 +41,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/about',
-        element: (
-          <PrivateRoute>
-            <About></About>
-          </PrivateRoute>
-        ),
+        element: <About></About>,
       },
       {
         path: '/allissues',
@@ -60,10 +58,28 @@ export const router = createBrowserRouter([
           await fetch(`${import.meta.env.VITE_SERVER}/issues/${params.id}`),
       },
       {
-        path:'/payment/:issueId',
-        element: <PrivateRoute>
-          <Payment></Payment>
-        </PrivateRoute>
+        path: '/payment/:issueId',
+        element: (
+          <PrivateRoute>
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/payment-success',
+        element: (
+          <PrivateRoute>
+            <PaymentSuccess></PaymentSuccess>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/payment-cancel',
+        element: (
+          <PrivateRoute>
+          <PaymentCancell></PaymentCancell>
+          </PrivateRoute>
+        ),
       }
     ],
   },
@@ -129,15 +145,15 @@ export const router = createBrowserRouter([
       },
       {
         path: 'manageusers',
-        element:<AdminManageusers></AdminManageusers>,
+        element: <AdminManageusers></AdminManageusers>,
       },
       {
         path: 'managestaff',
-        element:<AdminManageStaff></AdminManageStaff>,
+        element: <AdminManageStaff></AdminManageStaff>,
       },
       {
         path: 'paymentspage',
-        element:<Paymentspage></Paymentspage>,
+        element: <Paymentspage></Paymentspage>,
       },
       {
         path: 'profile',
@@ -165,7 +181,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'staffassignissues',
-        element:<StaffAssignedissues></StaffAssignedissues>,
+        element: <StaffAssignedissues></StaffAssignedissues>,
       },
     ],
   },

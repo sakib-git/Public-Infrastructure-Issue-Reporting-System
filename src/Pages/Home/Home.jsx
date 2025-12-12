@@ -7,7 +7,7 @@ import StayUpdated from './StayUpdated/StayUpdated';
 const Home = () => {
   return (
     <div className="">
-      <div  className="mt-20 max-w-[1000px] mx-auto">
+      <div  className="mt-20 max-w-[1400px] mx-auto">
         <Banner></Banner>
       </div>
       <div className="my-20">

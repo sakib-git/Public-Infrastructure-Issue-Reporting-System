@@ -17,23 +17,31 @@ const Payment = () => {
     },
   });
 
-  //   const handlePay = async () => {
-  //   const res = await axiosSecure.post('/create-checkout-session', {
-  //     email: payment.email,
-  //     issueId: payment._id,
-  //   });
+  const handlePay = async () => {
+    const res = await axiosSecure.post('/create-checkout-session', {
+      email: payment.email,
+      issueId: issueId,
+    });
 
-  //   // Stripe session URL → redirect
-  //   window.location.href = res.data.url;
-  // };
+    // console.log(res.data)
+    // Stripe session URL → redirect
+    window.location.href = res.data.url;
+             await axiosSecure.patch(`/issue/update-status/${issueId}`, { priority: 'high' });
+  };
 
   if (isLoading) {
     <p>loading...</p>;
   }
   return (
     <div>
-      <h5>payment {payment.status}</h5>
-      <button className="btn"> pay</button>
+      {/* <h5>payment{payment.priority}</h5> */}
+      <button
+        onClick={handlePay}
+        className="btn"
+      >
+        {' '}
+        pay
+      </button>
     </div>
   );
 };

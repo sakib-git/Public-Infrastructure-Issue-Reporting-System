@@ -20,7 +20,7 @@ const MyProfile = () => {
   const handleUpdate = async (data) => {
     if (isUpdating) return;
     setIsUpdating(true);
-    
+
     try {
       const uploadPhoto = data.photo[0];
       const formData = new FormData();
@@ -45,44 +45,50 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="flex gap-10 bg-white p-10 shadow">
-      <div>
+    <div className="mx-auto mt-20 flex max-w-4xl flex-col gap-10 rounded-xl bg-white p-8 shadow-lg md:flex-row md:p-10">
+      {/* Profile Section */}
+      <div className="flex flex-col items-center gap-4 md:items-start">
         <img
-          className="w-40 rounded-full"
+          className="h-40 w-40 rounded-full border border-[#c9c9c9] object-cover"
           src={user.photoURL}
-          alt=""
+          alt="Profile"
         />
-        <h5 className="text-2xl font-bold">{user.displayName}</h5>
-        <h5 className="font-bold">{user.email}</h5>
+        <h5 className="text-2xl font-bold text-gray-800">{user.displayName}</h5>
+        <p className="font-medium text-gray-500">{user.email}</p>
       </div>
+
+      {/* Update Form */}
       <form
         onSubmit={handleSubmit(handleUpdate)}
-        className="space-y-4"
+        className="flex flex-1 flex-col gap-6"
       >
-        <div className="flex max-w-[500px] flex-col">
-          <label className="font-semibold text-[#c9c9c9]">Name</label>
+        {/* Name Field */}
+        <div className="flex flex-col">
+          <label className="mb-2 font-semibold text-gray-400">Name</label>
           <input
             type="text"
             placeholder="Name"
             defaultValue={user.displayName}
-            {...register('name', {
-              required: true,
-            })}
+            {...register('name', { required: true })}
             className="rounded-md border border-[#c9c9c9] px-2 py-2 transition focus:border-[#c9c9c9] focus:ring-2 focus:ring-[#c9c9c9] focus:outline-none"
           />
         </div>
+
+        {/* Photo Field */}
         <div className="flex flex-col">
-          <label className="font-semibold text-[#c9c9c9]">Photo</label>
+          <label className="mb-2 font-semibold text-gray-400">Photo</label>
           <input
             type="file"
-            {...register('photo', {
-              required: true,
-            })}
+            {...register('photo', { required: true })}
             className="file-input w-full rounded-md border border-[#c9c9c9] transition focus:border-[#c9c9c9] focus:ring-2 focus:ring-[#c9c9c9] focus:outline-none"
           />
         </div>
 
-        <button className="btn">
+        {/* Update Button */}
+        <button
+          type="submit"
+          className="btn flex w-fit items-center justify-center gap-2 rounded-md bg-[#25408f] px-6 py-2 font-semibold text-white"
+        >
           {isUpdating ? (
             <span className="loading loading-spinner loading-xs"></span>
           ) : (

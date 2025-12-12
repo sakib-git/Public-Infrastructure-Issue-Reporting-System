@@ -44,53 +44,68 @@ const AdminProfile = () => {
     }
   };
   return (
-      <div className="flex gap-10 bg-white p-10 shadow">
-      <div>
-        <img
-          className="w-40 rounded-full"
-          src={user.photoURL}
-          alt=""
-        />
-        <h5 className="text-2xl font-bold">{user.displayName}</h5>
-        <h5 className="font-bold">{user.email}</h5>
-      </div>
-      <form
-        onSubmit={handleSubmit(handleUpdate)}
-        className="space-y-4"
-      >
-        <div className="flex max-w-[500px] flex-col">
-          <label className="font-semibold text-[#c9c9c9]">Name</label>
-          <input
-            type="text"
-            placeholder="Name"
-            defaultValue={user.displayName}
-            {...register('name', {
-              required: true,
-            })}
-            className="rounded-md border border-[#c9c9c9] px-2 py-2 transition focus:border-[#c9c9c9] focus:ring-2 focus:ring-[#c9c9c9] focus:outline-none"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label className="font-semibold text-[#c9c9c9]">Photo</label>
-          <input
-            type="file"
-            {...register('photo', {
-              required: true,
-            })}
-            className="file-input w-full rounded-md border border-[#c9c9c9] transition focus:border-[#c9c9c9] focus:ring-2 focus:ring-[#c9c9c9] focus:outline-none"
-          />
-        </div>
+ 
+    <div className="flex flex-col md:flex-row gap-10 bg-white p-8 md:p-10 shadow-lg rounded-xl max-w-4xl mx-auto mt-20">
+  {/* Profile Section */}
+  <div className="flex flex-col items-center md:items-start gap-4">
+    <img
+      className="w-40 h-40 rounded-full object-cover border border-[#c9c9c9]"
+      src={user.photoURL}
+      alt="Profile"
+    />
+    <h5 className="text-2xl font-bold text-gray-800">{user.displayName}</h5>
+    <p className="text-gray-500 font-medium">{user.email}</p>
+  </div>
 
-        <button className="btn">
-          {isUpdating ? (
-            <span className="loading loading-spinner loading-xs"></span>
-          ) : (
-            <span>Update</span>
-          )}
-        </button>
-      </form>
+  {/* Update Form */}
+  <form
+    onSubmit={handleSubmit(handleUpdate)}
+    className="flex-1 flex flex-col gap-6"
+  >
+    {/* Name Field */}
+    <div className="flex flex-col">
+      <label className="font-semibold text-gray-400 mb-2">Name</label>
+      <input
+        type="text"
+        placeholder="Name"
+        defaultValue={user.displayName}
+        {...register('name', { required: true })}
+        className="border border-[#c9c9c9] rounded-md  px-2 py-2 focus:outline-none focus:border-[#c9c9c9]  focus:ring-2 focus:ring-[#c9c9c9] transition"
+      />
     </div>
+
+    {/* Photo Field */}
+    <div className="flex flex-col">
+      <label className="font-semibold text-gray-400 mb-2">Photo</label>
+      <input
+        type="file"
+        {...register('photo', { required: true })}
+        className="file-input border border-[#c9c9c9] rounded-md  focus:outline-none focus:border-[#c9c9c9] w-full  focus:ring-2 focus:ring-[#c9c9c9] transition"
+      />
+    </div>
+
+    {/* Update Button */}
+    <button
+      type="submit"
+      className="btn bg-[#25408f] text-white font-semibold w-fit px-6 py-2 rounded-md flex items-center justify-center gap-2"
+    >
+      {isUpdating ? (
+        <span className="loading loading-spinner loading-xs"></span>
+      ) : (
+        <span>Update</span>
+      )}
+    </button>
+  </form>
+</div>
+
   );
 };
 
 export default AdminProfile;
+
+
+
+
+
+
+

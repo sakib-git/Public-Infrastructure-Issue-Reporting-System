@@ -1,6 +1,5 @@
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import IssueCard from '../../components/IssueCard';
 
 const AdminAllIssues = () => {
   const axiosSecure = useAxiosSecure();
@@ -11,6 +10,7 @@ const AdminAllIssues = () => {
       return res.data;
     },
   });
+  console.log(issues)
 
   return (
     <div className="">

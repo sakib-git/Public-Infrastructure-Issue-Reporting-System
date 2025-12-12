@@ -79,10 +79,6 @@ const ViewDetail = () => {
     });
   };
 
-  // const handlePayment = (_id, status) => {
-  //   //  console.log(_id, status)
-  //   axiosSecure.post('/payment-checkout-session', { _id, status });
-  // };
 
   return (
     <div className="mx-auto my-20 max-w-[1200px] rounded-2xl bg-white p-8 shadow-xl">
@@ -107,12 +103,12 @@ const ViewDetail = () => {
               Category: {category}
             </span>
             <span
-              className={`rounded-full px-4 py-1 shadow-sm ${priority === 'High' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}
+              className={`rounded-full px-4 py-1 shadow-sm ${priority === 'high' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}
             >
               Priority: {priority}
             </span>
             <span
-              className={`rounded-full px-4 py-1 shadow-sm ${status === 'pending' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}
+              className={`rounded-full px-4 py-1 shadow-sm ${status === 'pending' ? 'bg-red-300 ' : 'bg-green-100 text-green-800'}`}
             >
               status : {status}
             </span>
