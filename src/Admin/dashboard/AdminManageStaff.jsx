@@ -161,13 +161,13 @@ const AdminManageStaff = () => {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => setUpdateModal(s)}
-                            className="btn"
+                            className="btn "
                           >
                             update
                           </button>
                           <button
                             onClick={() => handleDelete(s._id)}
-                            className="btn"
+                            className="btn "
                           >
                             Delete
                           </button>
@@ -367,8 +367,9 @@ const AdminManageStaff = () => {
                 />
               </div>
 
-              <div className="mt-4">
-                <SubmitButton
+              <div className="mt-4 ">
+                <SubmitButton 
+                
                   isSubmitting={isUpdatingStaff}
                   text={'Update'}
                 />

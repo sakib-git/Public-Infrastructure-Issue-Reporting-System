@@ -26,14 +26,21 @@ const DasboardCitizen = () => {
     const totalPending = myIssues.filter(issue => issue.status === 'pending').length;
       const totalInProgress = myIssues.filter(issue => issue.status === 'in progress').length;
   const totalResolved = myIssues.filter(issue => issue.status === 'resolved').length;
-const totalIssues = myIssues.length;
+  const totalIssues = myIssues.length;
+
+const totalHighBoostPrice = myIssues
+  .filter(issue => issue.priority === 'high')
+  .reduce((sum, issue) => sum + (issue.boostPrice || 0), 0);
+
+
+
 
 const chartData = [
   { name: 'Total', count: totalIssues },
   { name: 'Pending', count: totalPending },
   { name: 'In Progress', count: totalInProgress },
   { name: 'Resolved', count: totalResolved },
-  { name: 'Payment', count: 0 },
+  { name: 'Payment', count:totalHighBoostPrice},
 ];
 
   return (
@@ -57,7 +64,7 @@ const chartData = [
         </div>
         <div className="grid h-40 place-content-center rounded-md bg-white p-3 font-bold shadow">
           <h4 className=" text-2xl">Total payments</h4>
-           <h5 className="text-center text-3xl">{  0}</h5>
+           <h5 className="text-center text-3xl">{totalHighBoostPrice }</h5>
         </div>
       </div>
 

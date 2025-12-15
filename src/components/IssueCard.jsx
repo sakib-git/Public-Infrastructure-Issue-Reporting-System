@@ -7,7 +7,7 @@ const IssueCard = ({ issue, refetch }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const axoisSecure = useAxiosSecure();
-  const { image, title, category, location, _id, upvotes, date } = issue;
+  const { image, title, category, location, _id, upvotes, date , boostPrice} = issue;
   const handleCount = (_id) => {
     if (!user) return navigate('/login');
     // console.log(upvotes, id)
@@ -28,6 +28,7 @@ const IssueCard = ({ issue, refetch }) => {
           <h2 className="text-[20px] font-bold">{title}</h2>
           <p className="text-sm text-gray-600">Category: {category}</p>
           <p className="text-sm text-gray-500">Location: {location}</p>
+          {/* <p className="text-sm text-gray-500"> boostPrice: { boostPrice}</p> */}
 
           <div className='flex  gap-2  items-center'>
             <p

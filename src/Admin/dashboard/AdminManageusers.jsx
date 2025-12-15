@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const AdminManageusers = () => {
@@ -11,6 +11,17 @@ const AdminManageusers = () => {
       return res.data;
     },
   });
+
+
+
+  const handleBlock = async (id) => {
+ console.log(id)
+  };
+
+  const handleUnblock = async (id) => {
+ console.log(id)
+  };
+
   return (
     <div>
       <h5 className="ml-4 text-4xl font-bold">
@@ -46,12 +57,22 @@ const AdminManageusers = () => {
                 </td>
                 <td>{u.email}</td>
                 <td>
-                  <button className='btn'>view</button>
+                  <button className="btn">view</button>
                 </td>
                 <td>
                   <div className="flex items-center gap-2">
-                    <button className="btn">block</button>
-                    <button className="btn">unblock</button>
+                    <button
+                      className="btn"
+                      onClick={() => handleBlock(u._id)}
+                    >
+                      Block
+                    </button>
+                    <button
+                      className="btn"
+                      onClick={() => handleUnblock(u._id)}
+                    >
+                      Unblock
+                    </button>
                   </div>
                 </td>
               </tr>
