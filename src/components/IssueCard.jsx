@@ -7,7 +7,8 @@ const IssueCard = ({ issue, refetch }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const axoisSecure = useAxiosSecure();
-  const { image, title, category, location, _id, upvotes, date , boostPrice} = issue;
+  const { image, title, category, location, _id, upvotes, date, boostPrice } =
+    issue;
   const handleCount = (_id) => {
     if (!user) return navigate('/login');
     // console.log(upvotes, id)
@@ -29,16 +30,14 @@ const IssueCard = ({ issue, refetch }) => {
           <p className="text-sm text-gray-600">Category: {category}</p>
           <p className="text-sm text-gray-500">Location: {location}</p>
 
-
-          <div className='flex  gap-2  items-center'>
+          <div className="flex items-center gap-2">
             <p
               onClick={() => handleCount(_id)}
-              className=" text-sm"
+              className="text-sm"
             >
               <BiLike size={20}></BiLike>
-             
             </p>
-            <p>Upvotes: {upvotes}</p> 
+            <p>Upvotes: {upvotes}</p>
           </div>
           <p className="mt-1 text-sm">{date}</p>
         </div>

@@ -85,7 +85,7 @@ const MyProfile = () => {
         </div>
 
         {/* Update Button */}
-        <button
+        {/* <button
           type="submit"
           className="btn flex w-fit items-center justify-center gap-2 rounded-md bg-[#25408f] px-6 py-2 font-semibold text-white"
         >
@@ -94,7 +94,20 @@ const MyProfile = () => {
           ) : (
             <span>Update</span>
           )}
-        </button>
+        </button> */}
+
+        {!user.isblock && (
+          <button
+            type="submit"
+            className="btn flex w-fit items-center justify-center gap-2 rounded-md bg-[#25408f] px-6 py-2 font-semibold text-white"
+          >
+            {isUpdating ? (
+              <span className="loading loading-spinner loading-xs"></span>
+            ) : (
+              <span>Update</span>
+            )}
+          </button>
+        )}
       </form>
     </div>
   );

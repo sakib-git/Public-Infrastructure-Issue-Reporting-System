@@ -15,7 +15,7 @@ const Paymentspage = () => {
 
   return (
     <div >
-      <h1 className="text-4xl font-bold">Payments page</h1>
+      <h1 className="text-4xl font-bold ml-4">Payments page</h1>
       <div className="overflow-x-auto">
         <table className="table-zebra table">
           {/* head */}
@@ -43,7 +43,7 @@ const Paymentspage = () => {
       </div>
 
     <div className='mt-5 text-right  '>
-        <button className='border px-4 rounded-md border-gray-300'>Print</button>
+        <button className='border px-4 rounded-md border-gray-300 mr-5'>Print</button>
     </div>
     </div>
   );

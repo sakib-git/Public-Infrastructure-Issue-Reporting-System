@@ -19,7 +19,6 @@ const AdminAllIssues = () => {
     },
   });
 
-  console.log(adminAllissues)
   const { data: staffList = [] } = useQuery({
     queryKey: ['staffList'],
     queryFn: async () => {

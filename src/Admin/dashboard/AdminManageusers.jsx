@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const AdminManageusers = () => {
   const axiosSecure = useAxiosSecure();
+
   const { data: manageUser = [], refetch } = useQuery({
     queryKey: ['manage-users'],
     queryFn: async () => {
@@ -12,15 +14,56 @@ const AdminManageusers = () => {
     },
   });
 
-
-
   const handleBlock = async (id) => {
-    console.log(id);
-  };
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This user will be blocked and cannot log in!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, block user!',
+      cancelButtonText: 'Cancel',
+    });
 
-  const handleUnblock = async (id) => {
-    console.log(id);
+    if (result.isConfirmed) {
+      const res = await axiosSecure.patch(`/users/block/${id}`);
+
+      if (res.data.modifiedCount) {
+        refetch();
+        Swal.fire({
+          title: 'Blocked!',
+          text: 'The user has been blocked successfully.',
+          icon: 'success',
+        });
+      }
+    }
   };
+  const handleUnblock = async (id) => {
+    
+      const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This user will be unblocked and can log in again!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, unblock user!',
+      cancelButtonText: 'Cancel',
+    });
+    if (result.isConfirmed) {
+      const res = await axiosSecure.patch(`/users/unblock/${id}`);
+      if (res.data.modifiedCount) {
+        refetch(); 
+        Swal.fire({
+          title: 'Unblocked!',
+          text: 'The user has been unblocked successfully.',
+          icon: 'success',
+        });
+    
+  };
+}
+  }
 
   return (
     <div>
@@ -56,7 +99,7 @@ const AdminManageusers = () => {
                   </div>
                 </td>
                 <td>{u.email}</td>
- 
+
                 <td>
                   {u.isSubscribed ? <span>Premium</span> : <span>Free</span>}
                 </td>
@@ -66,6 +109,7 @@ const AdminManageusers = () => {
                     <button
                       className="btn"
                       onClick={() => handleBlock(u._id)}
+                      disabled={u.isblock}
                     >
                       Block
                     </button>
@@ -74,6 +118,7 @@ const AdminManageusers = () => {
                       onClick={() => handleUnblock(u._id)}
                     >
                       Unblock
+
                     </button>
                   </div>
                 </td>

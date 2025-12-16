@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import axios from 'axios';
 import { format } from 'date-fns';
-import { toast } from 'kitzo/react';
+import { toast, ToastContainer } from 'kitzo/react';
 import useAuth from '../../../Hooks/useAuth';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const PublicReport = () => {
@@ -15,7 +15,11 @@ const PublicReport = () => {
   const [loading, setLoading] = useState(false);
 
   const queryClient = useQueryClient();
-  const { data: myIssues = [], isLoading: isMyIssueLoading } = useQuery({
+  const {
+    data: myIssues = [],
+    isLoading: isMyIssueLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['my-issues', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/my-issues/${user?.email}`);
@@ -69,147 +73,150 @@ const PublicReport = () => {
     });
   };
 
+
+  const Subscribebutton = async () => {
+  try {
+    await axiosSecure.patch(`/users/subscribe/${user.email}`);
+
+    toast.success('Subscription successful!');
+    navigate('/dashboard/my-profile');
+
+    refetch(); 
+  } catch (error) {
+    toast.error('Subscription failed');
+  }
+};
+
   return (
+ 
+
     <>
-      {isMyIssueLoading && (
-        <div className="mt-30 text-center">
-          <span className="loading loading-spinner loading-xl"></span>
-        </div>
-      )}
+  {user.isblock ? (
+<div className="flex min-h-screen items-center justify-center">
+    <h4 className="text-red-600 text-2xl font-bold">
+      Your account has been blocked
+    </h4>
+  </div>
+  ) : isMyIssueLoading ? (
+    // Loading spinner
+    <div className="mt-30 text-center">
+      <span className="loading loading-spinner loading-xl"></span>
+    </div>
+  ) : myIssues.length >= 3 && !user.isSubscribed ? (
+    // Limit reached
+    <div className="space-y-2 p-4">
+      <h3 className="text-xl font-medium lg:text-2xl">Limit reached</h3>
+      <p className="max-w-[450px] text-gray-600">
+        You have reached your issue submit limit. To continue submitting new
+        issues you have to become a paid member.
+      </p>
+      <button className="btn" onClick={Subscribebutton}>
+        Subscribe now
+      </button>
+    </div>
+  ) : (
+    // Form for public report
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-xl rounded-2xl bg-white p-10 shadow-xl">
+        <h1 className="mb-6 text-center text-3xl font-bold text-[#25408f]">
+          Public Reporting System
+        </h1>
 
-      {!isMyIssueLoading && (
-        <>
-          {myIssues.length >= 3 && !user.isSubscribed ? (
-            <div className="p-4 space-y-2">
-              <h3 className="text-xl lg:text-2xl font-medium">Limit reached</h3>
-              <p className="text-gray-600 max-w-[450px]">
-                You have reached your issue submit limit. to continue submit new
-                issues you have to become a paid member.
+        <form onSubmit={handleSubmit(handleForm)} className="space-y-5">
+          {/* Photo */}
+          <div>
+            <label className="font-semibold text-gray-500">Photo</label>
+            <input
+              type="file"
+              {...register('photo', { required: true })}
+              className="file-input mt-1 w-full rounded-md border border-gray-300 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
+            />
+            {errors.photo && (
+              <p className="mt-1 text-sm text-red-600">Photo is required</p>
+            )}
+          </div>
+
+          {/* Title */}
+          <div>
+            <label className="font-semibold text-gray-500">Title</label>
+            <input
+              type="text"
+              placeholder="Enter issue title"
+              {...register('title', { required: true })}
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
+            />
+            {errors.title && (
+              <p className="mt-1 text-sm text-red-600">Title is required</p>
+            )}
+          </div>
+
+          {/* Category */}
+          <div>
+            <label className="font-semibold text-gray-500">Category</label>
+            <select
+              {...register('category', { required: true })}
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
+            >
+              <option value="">Select a category</option>
+              <option value="Broken Streetlights">Broken Streetlights</option>
+              <option value="Potholes">Potholes</option>
+              <option value="Water Leakage">Water Leakage</option>
+              <option value="Garbage Overflow">Garbage Overflow</option>
+              <option value="Damaged Footpaths">Damaged Footpaths</option>
+            </select>
+            {errors.category && (
+              <p className="mt-1 text-sm text-red-600">Category is required</p>
+            )}
+          </div>
+
+          {/* Location */}
+          <div>
+            <label className="font-semibold text-gray-500">Location</label>
+            <input
+              type="text"
+              placeholder="Enter issue location"
+              {...register('location', { required: true })}
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
+            />
+            {errors.location && (
+              <p className="mt-1 text-sm text-red-600">Location is required</p>
+            )}
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="font-semibold text-gray-500">Description</label>
+            <textarea
+              rows={6}
+              placeholder="Describe the issue..."
+              {...register('description', { required: true })}
+              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
+            ></textarea>
+            {errors.description && (
+              <p className="mt-1 text-sm text-red-600">
+                Description is required
               </p>
-              <Link to='/dashboard/my-profile' className="btn" >Subscribe now</Link>
-            </div>
-          ) : (
-            <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-              <div className="w-full max-w-xl rounded-2xl bg-white p-10 shadow-xl">
-                <h1 className="mb-6 text-center text-3xl font-bold text-[#25408f]">
-                  Public Reporting System
-                </h1>
+            )}
+          </div>
 
-                <form
-                  onSubmit={handleSubmit(handleForm)}
-                  className="space-y-5"
-                >
-                  {/* Photo */}
-                  <div>
-                    <label className="font-semibold text-gray-500">Photo</label>
-                    <input
-                      type="file"
-                      {...register('photo', { required: true })}
-                      className="file-input mt-1 w-full rounded-md border border-gray-300 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
-                    />
-                    {errors.photo && (
-                      <p className="mt-1 text-sm text-red-600">
-                        Photo is required
-                      </p>
-                    )}
-                  </div>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-[#25408f] py-3 font-semibold text-white transition hover:bg-[#1b2f6b]"
+            disabled={loading || user.isBlocked} // Blocked হলে disable
+          >
+            {loading ? (
+              <span className="loading loading-spinner loading-xs"></span>
+            ) : (
+              <span>Submit Report</span>
+            )}
+          </button>
+        </form>
+      </div>
+    </div>
+  )}
+</>
 
-                  {/* Title */}
-                  <div>
-                    <label className="font-semibold text-gray-500">Title</label>
-                    <input
-                      type="text"
-                      placeholder="Enter issue title"
-                      {...register('title', { required: true })}
-                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
-                    />
-                    {errors.title && (
-                      <p className="mt-1 text-sm text-red-600">
-                        Title is required
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Category */}
-                  <div>
-                    <label className="font-semibold text-gray-500">
-                      Category
-                    </label>
-
-                    <select
-                      {...register('category', { required: true })}
-                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
-                    >
-                      <option value="">Select a category</option>
-                      <option value="Broken Streetlights">
-                        Broken Streetlights
-                      </option>
-                      <option value="Potholes">Potholes</option>
-                      <option value="Water Leakage">Water Leakage</option>
-                      <option value="Garbage Overflow">Garbage Overflow</option>
-                      <option value="Damaged Footpaths">
-                        Damaged Footpaths
-                      </option>
-                    </select>
-
-                    {errors.category && (
-                      <p className="mt-1 text-sm text-red-600">
-                        Category is required
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Location */}
-                  <div>
-                    <label className="font-semibold text-gray-500">
-                      Location
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter issue location"
-                      {...register('location', { required: true })}
-                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
-                    />
-                    {errors.location && (
-                      <p className="mt-1 text-sm text-red-600">
-                        Location is required
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Description */}
-                  <div>
-                    <label className="font-semibold text-gray-500">
-                      Description
-                    </label>
-                    <textarea
-                      rows={6}
-                      placeholder="Describe the issue..."
-                      {...register('description', { required: true })}
-                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-[#25408f] focus:outline-none"
-                    ></textarea>
-                    {errors.description && (
-                      <p className="mt-1 text-sm text-red-600">
-                        Description is required
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Submit Button */}
-                  <button className="w-full rounded-lg bg-[#25408f] py-3 font-semibold text-white transition hover:bg-[#1b2f6b]">
-                    {loading ? (
-                      <span className="loading loading-spinner loading-xs"></span>
-                    ) : (
-                      <span>Submit Report</span>
-                    )}
-                  </button>
-                </form>
-              </div>
-            </div>
-          )}
-        </>
-      )}
-    </>
   );
 };
 

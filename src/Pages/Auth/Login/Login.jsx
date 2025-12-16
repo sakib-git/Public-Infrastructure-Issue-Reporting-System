@@ -41,7 +41,7 @@ const Login = () => {
   const handleForgotpassword = () => {
     const email = getValues('email');
     if (!email) {
-      toast.error('Give me your email');
+      toast.error('Check your email!');
       return;
     }
     sendPasswordResetEmail(auth, email)
