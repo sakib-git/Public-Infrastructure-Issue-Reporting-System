@@ -1,6 +1,7 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Link } from 'react-router';
 
 const Banner = () => {
   return (
@@ -19,9 +20,11 @@ const Banner = () => {
           <p className="mb-4 text-center text-2xl">
             Streetlights not working? Report them now.'
           </p>
-          <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
-            Apply Now
-          </button>
+          <Link to="/dashboard/public-report">
+            <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
+              Apply Now
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -33,9 +36,11 @@ const Banner = () => {
           <p className="mb-4 text-center text-2xl">
             Overflowing garbage in public areas? Let us know.
           </p>
-          <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
-            Apply Now
-          </button>
+          <Link to="/dashboard/public-report">
+            <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
+              Apply Now
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -47,9 +52,11 @@ const Banner = () => {
           <p className="mb-4 text-center text-2xl">
             Cracked or broken footpaths? Report it now.
           </p>
-          <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
-            Apply Now
-          </button>
+          <Link to="/dashboard/public-report">
+            <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
+              Apply Now
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -61,9 +68,11 @@ const Banner = () => {
           <p className="mb-4 text-center text-2xl">
             Report water leaks to prevent damage and waste
           </p>
-          <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
-            Apply Now
-          </button>
+          <Link to="/dashboard/public-report">
+            <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
+              Apply Now
+            </button>
+          </Link>
         </div>
       </div>
     </Carousel>

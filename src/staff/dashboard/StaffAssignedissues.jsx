@@ -19,6 +19,7 @@ const StaffAssignedissues = () => {
     },
   });
 
+  console.log(assignedIssues);
   const updateIssueStatus = async (issueId, status) => {
     await axiosSecure.patch('/staff/update-issue-status', {
       issueId,
@@ -30,7 +31,10 @@ const StaffAssignedissues = () => {
 
   return (
     <div className="p-2">
-      <h1>Assigned issues</h1>
+      <h5 className="text-4xl font-bold">
+        {' '}
+        Assigned issues : ({assignedIssues.length})
+      </h5>
 
       {isLoading && <p>Loading...</p>}
       {error && <p>Error loading issues.</p>}

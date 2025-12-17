@@ -20,13 +20,19 @@ export default function StaffDashboard() {
     },
   });
 
+
+
+
+
+ 
   const totalResolved = AssignedIssuesCount.filter(
     (issue) => issue.status === 'resolved',
   ).length;
 
   const chartData = [
-    { name: 'Total', count: AssignedIssuesCount.length },
+    { name: 'Total submit', count: AssignedIssuesCount.length },
     { name: 'Resolved', count: totalResolved },
+  
   ];
 
   return (
@@ -42,6 +48,7 @@ export default function StaffDashboard() {
           <h4 className="text-2xl">Issues resolved count</h4>
           <h5 className="text-center text-3xl">{totalResolved || 0}</h5>
         </div>
+
       </div>
       <div className="mt-20 h-72 w-full">
         <ResponsiveContainer

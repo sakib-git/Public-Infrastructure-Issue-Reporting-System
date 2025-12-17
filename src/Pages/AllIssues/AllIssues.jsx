@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import IssueCard from '../../components/IssueCard';
@@ -12,28 +12,44 @@ const AllIssues = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchText, setSearchText] = useState('');
   const limit = 5;
+const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    setDebouncedSearch(searchText);
+    setCurrentpage(0); 
+  }, 500);
+
+  return () => clearTimeout(timer);
+}, [searchText]);
+
+
 
   const {
-    data: allissues = [],
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ['issues', currentPage, selectedCategory, searchText],
-    queryFn: async () => {
-      const categoryQuery = selectedCategory
-        ? `&category=${selectedCategory}`
-        : '';
-      const searchQuery = searchText ? `&search=${searchText}` : '';
-      const res = await axiosSecure.get(
-        `/issues?limit=${limit}&skip=${currentPage * limit}${categoryQuery}${searchQuery}`,
-      );
-      settoalIssues(res.data.total);
-      const page = Math.ceil(res.data.total / limit);
+  data: allissues = [],
+  isLoading,
+  refetch,
+} = useQuery({
+  queryKey: ['issues', currentPage, selectedCategory, debouncedSearch],
+  queryFn: async () => {
+    const categoryQuery = selectedCategory
+      ? `&category=${selectedCategory}`
+      : '';
+    const searchQuery = debouncedSearch
+      ? `&search=${debouncedSearch}`
+      : '';
 
-      setTotalpage(page);
-      return res.data.result;
-    },
-  });
+    const res = await axiosSecure.get(
+      `/issues?limit=${limit}&skip=${currentPage * limit}${categoryQuery}${searchQuery}`
+    );
+
+    settoalIssues(res.data.total);
+    setTotalpage(Math.ceil(res.data.total / limit));
+
+    return res.data.result;
+  },
+});
+
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);

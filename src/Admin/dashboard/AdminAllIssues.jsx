@@ -36,7 +36,6 @@ const AdminAllIssues = () => {
   };
 
   const handleAssign = async (issueId, staffEmail) => {
-
     await axiosSecure.post(`/admin/assign-issue`, {
       issueId,
       staffEmail,
@@ -45,6 +44,8 @@ const AdminAllIssues = () => {
     toast.success('Staff assigned successfully');
     refetch();
   };
+
+
 
   return (
     <div className="">
@@ -73,7 +74,7 @@ const AdminAllIssues = () => {
                 <td>{issue.category}</td>
                 <td>{issue.status}</td>
                 <td>{issue.priority}</td>
-       
+
                 <td>
                   <button
                     onClick={() => {
@@ -81,8 +82,9 @@ const AdminAllIssues = () => {
                         toast.error('Cannot assign staff to a rejected issue');
                         return;
                       }
-                      setSelectedIssue(issue); // select this issue
-                      setOpenmodal(true); // open modal
+                   
+                      setSelectedIssue(issue);
+                      setOpenmodal(true);
                     }}
                     className="btn"
                   >
