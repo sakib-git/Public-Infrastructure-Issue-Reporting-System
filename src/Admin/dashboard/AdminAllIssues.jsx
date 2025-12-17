@@ -35,7 +35,12 @@ const AdminAllIssues = () => {
     refetch();
   };
 
+  const [isAssigning, setIsAssigning] = useState(false);
+
   const handleAssign = async (issueId, staffEmail) => {
+    if (isAssigning) return;
+    setIsAssigning(true);
+
     await axiosSecure.post(`/admin/assign-issue`, {
       issueId,
       staffEmail,
@@ -43,13 +48,12 @@ const AdminAllIssues = () => {
     setOpenmodal(false);
     toast.success('Staff assigned successfully');
     refetch();
+    setIsAssigning(false);
   };
-
-
 
   return (
     <div className="">
-      <h2 className="py-2 text-4xl font-bold max-sm:px-4">
+      <h2 className="px-2 py-2 text-4xl font-bold max-sm:px-4 md:px-3">
         AllIssues: {adminAllissues.length}
       </h2>
       <div className="overflow-x-auto">
@@ -77,18 +81,23 @@ const AdminAllIssues = () => {
 
                 <td>
                   <button
+                    disabled={issue.isAssigned}
                     onClick={() => {
+                      if (isAssigning) {
+                        toast.error('Wait while assigning issue');
+                        return;
+                      }
                       if (issue.status === 'rejected') {
                         toast.error('Cannot assign staff to a rejected issue');
                         return;
                       }
-                   
+
                       setSelectedIssue(issue);
                       setOpenmodal(true);
                     }}
                     className="btn"
                   >
-                    Add staff
+                    <span>Add staff</span>
                   </button>
                 </td>
                 <td>
@@ -128,7 +137,6 @@ const AdminAllIssues = () => {
                   <tr>
                     <th>Serial</th>
                     <th>Name</th>
-
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -141,11 +149,15 @@ const AdminAllIssues = () => {
                       <td>
                         <button
                           className="btn"
-                          onClick={() =>
-                            handleAssign(selectedIssue._id, staff.email)
-                          }
+                          onClick={() => {
+                            if (isAssigning) {
+                              toast.error('Wait while assigning issue');
+                              return;
+                            }
+                            handleAssign(selectedIssue._id, staff.email);
+                          }}
                         >
-                          Assign
+                          <span>Assign</span>
                         </button>
                       </td>
                     </tr>

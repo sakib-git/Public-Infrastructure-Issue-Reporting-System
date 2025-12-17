@@ -2,8 +2,11 @@ import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Link } from 'react-router';
+import useAuth from './../../../Hooks/useAuth';
 
 const Banner = () => {
+  const { user } = useAuth();
+
   return (
     <Carousel
       className="max-lg:px-4"
@@ -20,7 +23,7 @@ const Banner = () => {
           <p className="mb-4 text-center text-2xl">
             Streetlights not working? Report them now.'
           </p>
-          <Link to="/dashboard/public-report">
+          <Link to={user?.role === 'user' ? '/dashboard/public-report' : '/'}>
             <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
               Apply Now
             </button>
@@ -36,7 +39,7 @@ const Banner = () => {
           <p className="mb-4 text-center text-2xl">
             Overflowing garbage in public areas? Let us know.
           </p>
-          <Link to="/dashboard/public-report">
+          <Link to={user?.role === 'user' ? '/dashboard/public-report' : '/'}>
             <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
               Apply Now
             </button>
@@ -52,7 +55,7 @@ const Banner = () => {
           <p className="mb-4 text-center text-2xl">
             Cracked or broken footpaths? Report it now.
           </p>
-          <Link to="/dashboard/public-report">
+          <Link to={user?.role === 'user' ? '/dashboard/public-report' : '/'}>
             <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
               Apply Now
             </button>
@@ -68,7 +71,7 @@ const Banner = () => {
           <p className="mb-4 text-center text-2xl">
             Report water leaks to prevent damage and waste
           </p>
-          <Link to="/dashboard/public-report">
+          <Link to={user?.role === 'user' ? '/dashboard/public-report' : '/'}>
             <button className="rounded-lg bg-[#25408f] px-4 py-2 text-white transition hover:bg-blue-700">
               Apply Now
             </button>

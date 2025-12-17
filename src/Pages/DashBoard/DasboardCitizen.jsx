@@ -74,7 +74,7 @@ const DasboardCitizen = () => {
         <div className="mt-20 h-72 w-full">
           <ResponsiveContainer
             width="100%"
-            height="100%"
+            height={300}
           >
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="5 5" />

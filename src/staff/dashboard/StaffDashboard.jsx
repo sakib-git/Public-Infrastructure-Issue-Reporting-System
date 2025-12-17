@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { format } from 'date-fns';
+
 import {
   BarChart,
   Bar,
@@ -12,7 +14,7 @@ import {
 export default function StaffDashboard() {
   const axiosSecure = useAxiosSecure();
 
-  const { data: AssignedIssuesCount = [] } = useQuery({
+  const { data: AssignedIssues = [] } = useQuery({
     queryKey: ['Assigned-issues-count'],
     queryFn: async () => {
       const res = await axiosSecure.get('/staff/assigned-issues');
@@ -20,40 +22,47 @@ export default function StaffDashboard() {
     },
   });
 
-
-
-
-
- 
-  const totalResolved = AssignedIssuesCount.filter(
+  const totalResolved = AssignedIssues.filter(
     (issue) => issue.status === 'resolved',
   ).length;
 
+  const todaysTasks = AssignedIssues.filter((assignment) => {
+    if (!assignment) return false;
+
+    return (
+      format(assignment.assignedAt, 'dd-MM-y') === format(new Date(), 'dd-MM-y')
+    );
+  }).length;
+
   const chartData = [
-    { name: 'Total submit', count: AssignedIssuesCount.length },
+    { name: 'Total submit', count: AssignedIssues.length },
     { name: 'Resolved', count: totalResolved },
-  
+    {
+      name: "Today's task",
+      count: todaysTasks,
+    },
   ];
 
   return (
-    <div className='px-2 md:px-3'>
+    <div className="px-2 md:px-3">
       <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="grid h-40 place-content-center rounded-md bg-white p-3 font-bold shadow">
           <h4 className="text-2xl">Assigned issues count</h4>
-          <h5 className="text-center text-3xl">
-            {AssignedIssuesCount.length || 0}
-          </h5>
+          <h5 className="text-center text-3xl">{AssignedIssues.length || 0}</h5>
         </div>
         <div className="grid h-40 place-content-center rounded-md bg-white p-3 font-bold shadow">
           <h4 className="text-2xl">Issues resolved count</h4>
           <h5 className="text-center text-3xl">{totalResolved || 0}</h5>
         </div>
-
+        <div className="grid h-40 place-content-center rounded-md bg-white p-3 font-bold shadow">
+          <h4 className="text-2xl">Today's task</h4>
+          <h5 className="text-center text-3xl">{todaysTasks}</h5>
+        </div>
       </div>
       <div className="mt-20 h-72 w-full">
         <ResponsiveContainer
           width="100%"
-          height="100%"
+          height={300}
         >
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="5 5" />

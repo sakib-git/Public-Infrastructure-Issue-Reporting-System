@@ -62,6 +62,7 @@ const PublicReport = () => {
       createdBy: user.uid,
       upvotedBy: [],
       boostPrice: 100,
+      isAssigned: false,
     };
 
     axiosSecure.post('/issues', issueData).then(() => {
