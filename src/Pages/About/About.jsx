@@ -5,7 +5,7 @@ const About = () => {
   const { user } = useAuth();
 
   return (
-    <div className="mx-auto mt-6 max-w-[1400px] rounded-lg bg-white p-6">
+    <div className="mx-auto mt-30 max-w-[1400px] rounded-lg bg-white p-6 ">
       <h1 className="text-3xl font-bold">About InfraReport</h1>
       <p className="mt-4 text-gray-700">
         InfraReport is a digital platform that enables citizens to report public

@@ -30,6 +30,7 @@ import Payment from '../Pages/AllIssues/Payment/Payment';
 import PaymentSuccess from '../Pages/AllIssues/Payment/PaymentSuccess';
 import PaymentCancell from '../Pages/AllIssues/Payment/PaymentCancell';
 import DasboardCitizen from '../Pages/DashBoard/DasboardCitizen';
+import Blog from '../Pages/Blog/Blog';
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: '/about',
         element: <About></About>,
+      },
+      {
+        path: '/blog',
+        element: <Blog></Blog>,
       },
       {
         path: '/allissues',

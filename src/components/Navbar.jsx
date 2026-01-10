@@ -61,6 +61,14 @@ const Navbar = () => {
       >
         <li>About</li>
       </NavLink>
+      <NavLink
+        to="/blog"
+        className={({ isActive }) =>
+          ` ${isActive ? 'text-[#1e91f4]' : ''} rounded-md px-5 py-1.5 font-medium hover:bg-[#e7e7e8]`
+        }
+      >
+        <li>Blog</li>
+      </NavLink>
 
       {user ? (
         <div className="relative">
@@ -107,7 +115,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="w-full bg-white px-6 py-4 shadow">
+    <nav className="w-full bg-white px-6 py-4 shadow fixed z-10">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between">
         <Logo
           onClick={() => {

@@ -67,7 +67,7 @@ const [debouncedSearch, setDebouncedSearch] = useState('');
   }
   return (
     <div className="px-2 md:px-3">
-      <div className="mx-auto max-w-[1400px]">
+      <div className="mx-auto max-w-[1400px] mt-30">
         <h2 className="py-2 text-4xl font-bold max-sm:px-4">
           AllIssues: ({totalissues})
         </h2>

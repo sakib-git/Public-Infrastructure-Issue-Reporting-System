@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, NavLink, useLocation,  } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 import useAuth from '../../../Hooks/useAuth';
 import { toast } from 'kitzo/react';
 import SocialLogin from '../SocialLogin/SocialLogin';
@@ -13,11 +13,14 @@ const Login = () => {
   // const navigate = useNavigate();
   const [showPassword, setShowpasswor] = useState(false);
   const [isLogingIn, setIsLogingIn] = useState(false);
+  const [emails, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const {
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -51,6 +54,12 @@ const Login = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleGuest = (e) => {
+    e.preventDefault();
+    setValue('email', 'user3@gmail.com');
+    setValue('password', '123456');
   };
   return (
     <div className="flex h-screen items-center justify-center">
@@ -114,6 +123,14 @@ const Login = () => {
               ) : (
                 <span>Log in</span>
               )}
+            </button>
+
+            <button
+              onClick={handleGuest}
+              type="button"
+              className="btn mb-2 w-full rounded-md bg-[#25408f] font-semibold text-white outline-none"
+            >
+              guest
             </button>
           </div>
         </form>
