@@ -5,6 +5,8 @@ import KeyFeatures from './KeyFeatures/KeyFeatures';
 import StayUpdated from './StayUpdated/StayUpdated';
 import ResolvedIssues from './ResolvedIssues/ResolvedIssues';
 import FQA from './FQA/FQA';
+import TrustSection from './TrustSection/TrustSection';
+import EmergencyCTA from './EmergencyCTA/EmergencyCTA';
 
 const Home = () => {
   return (
@@ -15,13 +17,20 @@ const Home = () => {
       <div className="my-20">
         <ResolvedIssues></ResolvedIssues>
       </div>
+        <div className="my-20">
+      <TrustSection></TrustSection>
+      </div>
       <div className="my-20">
         <h2 className="mb-6 text-center text-3xl font-bold">How It Works</h2>
         <Howtowork></Howtowork>
       </div>
       <div className="my-20">
+      <EmergencyCTA></EmergencyCTA>
+      </div>
+      <div className="my-20">
         <KeyFeatures></KeyFeatures>
       </div>
+  
       <div className="my-20">
         <FQA></FQA>
       </div>

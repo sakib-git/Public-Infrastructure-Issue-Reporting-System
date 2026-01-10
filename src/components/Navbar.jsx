@@ -141,6 +141,7 @@ const Navbar = () => {
       {open && (
         <ul className="mt-4 flex flex-col gap-4 rounded-lg bg-gray-50 p-4 text-gray-700 shadow md:hidden">
           {links}
+
         </ul>
       )}
     </nav>
@@ -148,3 +149,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+;
